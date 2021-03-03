@@ -1,8 +1,10 @@
 package com.ckr.prac.controller;
 
 import com.ckr.prac.entity.TestDTO;
+import com.ckr.prac.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +17,17 @@ import java.util.List;
 @RequestMapping("/apis")
 public class TestRest {
     private static final Logger logger = LoggerFactory.getLogger(TestRest.class);
+
+    @Autowired
+    UserService userService;
+
+    @GetMapping(path = "/user")
+    public @ResponseBody String user(HttpSession session) {
+        logger.info("/user");
+        userService.getUsers();
+        return "OK";
+    }
+
     @GetMapping(path = "/exam")
     public @ResponseBody String test(HttpSession session) {
         logger.info(session.toString());
